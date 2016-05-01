@@ -72,10 +72,10 @@ else{
 
 		case 'modificar':
 			echo "voy a modificar";
-			//Persona::ModificarPersona();
+			Persona::ModificarPersona($respuesta->datos->persona);;
 			break;
 		default:
-			echo "no ingresó en ninguno";
+			echo "no ingresÃ³ en ninguno";
 			break;
 	}
 
@@ -84,7 +84,7 @@ else{
 
 	//echo $respuesta->datos->persona->nombre;
 
-	//Persona::InsertarPersona($respuesta->datos->persona); //Llama al método estático InsertarPersona de la Clase Persona 
+	//Persona::InsertarPersona($respuesta->datos->persona); //Llama al mÃ©todo estÃ¡tico InsertarPersona de la Clase Persona 
 	//para que los datos queden registrados en la BD
 
 
