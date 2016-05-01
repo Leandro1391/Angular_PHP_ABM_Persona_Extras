@@ -23,7 +23,7 @@ app.controller('controlAlta', function($scope, $http) {
 
   	console.log("persona a guardar:");
     console.log($scope.persona);
-    $http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
+    $http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})//funcion de ajax $http o con .then
  	  .then(function(respuesta) {     	
  		     //aca se ejetuca si retorno sin errores      	
       	 console.log(respuesta.data);
@@ -41,15 +41,15 @@ app.controller('controlAlta', function($scope, $http) {
 
 app.controller('controlGrilla', function($scope, $http) {
   	$scope.DatoTest="**grilla**";
- 	
- 	$http.get('PHP/nexo.php', { params: {accion :"traer"}})
+ 	//http.get obtiene una lista
+ 	$http.get('PHP/nexo.php', { params: {accion :"traer"}})  //La accion le paso todo el objeto(carga la lista)
  	.then(function(respuesta) {     	
 
-      	 $scope.ListadoPersonas = respuesta.data.listado;
+      	 $scope.ListadoPersonas = respuesta.data.listado; //guarda en listadoPersona lo que devuelve GET
       	 console.log(respuesta.data);
 
     },function errorCallback(response) {
-     		 $scope.ListadoPersonas= [];
+     		 $scope.ListadoPersonas= []; //si da error me da una lista vacia
      		console.log( response);
      			/*
 
@@ -70,14 +70,26 @@ app.controller('controlGrilla', function($scope, $http) {
  	 */
  	 });
 
+
+
  	$scope.Borrar=function(persona){
 		console.log("borrar"+persona);
 
 
 
-$http.post("PHP/nexo.php",{accion :"borrar",persona:persona},{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+$http.post("PHP/nexo.php",{datos :{accion :"borrar",persona:persona}},{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
  .then(function(respuesta) {       
-         //aca se ejetuca si retorno sin errores        
+         //aca se ejetuca si retorno sin errores
+         $http.get('PHP/nexo.php', { params: {accion :"traer"}})  //La accion le paso todo el objeto
+         .then(function(respuesta) {       
+
+               $scope.ListadoPersonas = respuesta.data.listado; //guarda en listadoPersona lo que devuelve GET
+               console.log(respuesta.data);
+
+    },function errorCallback(response) {
+         $scope.ListadoPersonas= []; //si da error me da una lista vacia
+        console.log( response);
+});        
          console.log(respuesta.data);
 
     },function errorCallback(response) {        

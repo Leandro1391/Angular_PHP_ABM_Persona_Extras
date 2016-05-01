@@ -97,9 +97,9 @@ class Persona
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		//$consulta =$objetoAccesoDato->RetornarConsulta("select * from persona");
-		$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
+		$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() "); //llamada a Store Procedure
 		$consulta->execute();			
-		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "persona");	
+		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "persona");	//Método PDO obtengo una array de personas
 		return $arrPersonas;
 	}
 	
